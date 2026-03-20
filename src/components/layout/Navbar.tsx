@@ -5,11 +5,13 @@ import { styles } from "../../constants/styles";
 import { navLinks } from "../../constants";
 import { menu, close } from "../../assets";
 import ThemeToggle from "./ThemeToggle";
+import { useGameModal } from "./GameModal";
 
 const Navbar = () => {
   const [active, setActive] = useState<string | null>();
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { openGameModal } = useGameModal();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,7 +67,7 @@ const Navbar = () => {
           }}
         >
           <span className="flex cursor-pointer text-[24px] font-bold text-white">
-            (⁠◔⁠‿⁠◔⁠)
+            Portfolio
           </span>
         </Link>
 
@@ -81,6 +83,12 @@ const Navbar = () => {
                 <a href={`#${nav.id}`}>{nav.title}</a>
               </li>
             ))}
+            <li
+              className="cursor-pointer text-[18px] font-medium text-secondary hover:text-white transition-colors duration-200"
+              onClick={openGameModal}
+            >
+              Game
+            </li>
           </ul>
 
           <ThemeToggle />
@@ -114,6 +122,15 @@ const Navbar = () => {
                   <a href={`#${nav.id}`}>{nav.title}</a>
                 </li>
               ))}
+              <li
+                className="font-poppins cursor-pointer text-[16px] font-medium text-secondary"
+                onClick={() => {
+                  setToggle(!toggle);
+                  openGameModal();
+                }}
+              >
+                Game
+              </li>
             </ul>
           </div>
         </div>

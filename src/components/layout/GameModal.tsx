@@ -1,8 +1,18 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+// Global state to control modal from outside
+let openGameModal: () => void;
+
+export const useGameModal = () => {
+  return { openGameModal };
+};
+
 const GameModal = () => {
   const [isOpen, setIsOpen] = useState(false);
+  
+  // Expose open function globally
+  openGameModal = () => setIsOpen(true);
 
   // Load Spline script when modal opens
   useEffect(() => {
@@ -22,17 +32,6 @@ const GameModal = () => {
 
   return (
     <>
-      {/* Game Button - (◔‿◔) */}
-      <motion.button
-        onClick={() => setIsOpen(true)}
-        className="fixed left-8 top-24 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 text-lg font-bold text-white shadow-lg transition-all hover:scale-110"
-        whileHover={{ y: -2 }}
-        whileTap={{ scale: 0.95 }}
-        title="Play Game"
-      >
-        (◔‿◔)
-      </motion.button>
-
       {/* Game Modal */}
       <AnimatePresence>
         {isOpen && (
@@ -60,28 +59,21 @@ const GameModal = () => {
                 />
               </div>
 
-              {/* Exit Button - Advanced Colorful Close - Positioned to cover Spline logo */}
+              {/* Hide Spline Logo - Bottom Right Corner */}
+              <div 
+                className="absolute bottom-0 right-0 h-20 w-56 bg-gray-900 z-40"
+              />
+
+              {/* Exit Button - Simple design in bottom right */}
               <motion.button
                 onClick={() => setIsOpen(false)}
-                className="absolute bottom-6 left-6 z-50 flex h-14 items-center gap-3 rounded-full bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 px-8 text-lg font-bold text-white shadow-2xl transition-all"
-                style={{
-                  boxShadow: "0 0 30px rgba(255, 100, 100, 0.6), 0 10px 40px rgba(0, 0, 0, 0.4)"
-                }}
-                whileHover={{ 
-                  scale: 1.08,
-                  boxShadow: "0 0 40px rgba(255, 100, 100, 0.8), 0 15px 50px rgba(0, 0, 0, 0.5)"
-                }}
+                className="absolute bottom-4 right-4 z-50 flex h-10 items-center gap-2 rounded-lg bg-red-500 px-4 font-semibold text-white shadow-lg"
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span className="text-xl">✕</span>
-                <span>Exit Game</span>
+                <span>✕</span>
+                <span>Exit</span>
               </motion.button>
-
-              {/* Hide Spline Logo with overlay */}
-              <div 
-                className="absolute bottom-0 left-0 h-20 w-48 bg-gray-900"
-                style={{ zIndex: 40 }}
-              />
 
               {/* Game Title */}
               <div className="absolute right-4 top-4 rounded-lg bg-black/50 px-4 py-2 backdrop-blur-sm">
