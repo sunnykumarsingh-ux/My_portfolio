@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 import { styles } from "../../constants/styles";
-import { ComputersCanvas } from "../canvas";
+import { ComputersCanvas, CyberBackground } from "../canvas";
 import { config } from "../../constants/config";
 import Typewriter from "../atoms/Typewriter";
 
@@ -9,15 +9,7 @@ const Hero = () => {
   return (
     <section className={`relative mx-auto h-screen w-full overflow-hidden`}>
       {/* Video Background */}
-      <div
-        className="absolute inset-0 h-full w-full"
-        style={{
-          backgroundImage: "url('/cyber-bg.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
+      <CyberBackground />
       
       {/* Overlay for better text readability */}
       <div className="absolute inset-0 bg-black/40" />
