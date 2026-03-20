@@ -14,7 +14,7 @@ const INITIAL_STATE = Object.fromEntries(
 
 const emailjsConfig = {
   serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
-  templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+  templateId: "template_1zomues",
   publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
 };
 
@@ -41,11 +41,11 @@ const Contact = () => {
         emailjsConfig.serviceId,
         emailjsConfig.templateId,
         {
-          form_name: form.name,
-          to_name: config.html.fullName,
-          from_email: form.email,
-          to_email: config.html.email,
+          name: form.name,
+          email: form.email,
           message: form.message,
+          title: "Portfolio Contact",
+          time: new Date().toLocaleString(),
         },
         emailjsConfig.publicKey
       )
