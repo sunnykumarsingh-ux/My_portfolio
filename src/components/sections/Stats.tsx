@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { SectionWrapper } from "../../hoc";
 import AnimatedCounter from "../atoms/AnimatedCounter";
-import { config } from "../../constants/config";
 import { Header } from "../atoms/Header";
 
 const stats = [
