@@ -60,22 +60,31 @@ const GameModal = () => {
                 />
               </div>
 
-              {/* Exit Button - Advanced Colorful Close */}
+              {/* Exit Button - Advanced Colorful Close - Positioned to cover Spline logo */}
               <motion.button
                 onClick={() => setIsOpen(false)}
-                className="absolute right-4 top-4 flex h-12 items-center gap-2 rounded-full bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 px-6 font-bold text-white shadow-lg transition-all hover:scale-105"
+                className="absolute bottom-6 left-6 z-50 flex h-14 items-center gap-3 rounded-full bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 px-8 text-lg font-bold text-white shadow-2xl transition-all"
+                style={{
+                  boxShadow: "0 0 30px rgba(255, 100, 100, 0.6), 0 10px 40px rgba(0, 0, 0, 0.4)"
+                }}
                 whileHover={{ 
-                  scale: 1.05,
-                  boxShadow: "0 0 20px rgba(255, 100, 100, 0.5)"
+                  scale: 1.08,
+                  boxShadow: "0 0 40px rgba(255, 100, 100, 0.8), 0 15px 50px rgba(0, 0, 0, 0.5)"
                 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span className="text-lg">✕</span>
-                <span>Exit</span>
+                <span className="text-xl">✕</span>
+                <span>Exit Game</span>
               </motion.button>
 
+              {/* Hide Spline Logo with overlay */}
+              <div 
+                className="absolute bottom-0 left-0 h-20 w-48 bg-gray-900"
+                style={{ zIndex: 40 }}
+              />
+
               {/* Game Title */}
-              <div className="absolute left-4 top-4 rounded-lg bg-black/50 px-4 py-2 backdrop-blur-sm">
+              <div className="absolute right-4 top-4 rounded-lg bg-black/50 px-4 py-2 backdrop-blur-sm">
                 <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-lg font-bold text-transparent">
                   Interactive 3D Game
                 </span>
