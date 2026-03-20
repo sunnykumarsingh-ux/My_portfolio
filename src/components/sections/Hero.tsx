@@ -9,15 +9,15 @@ const Hero = () => {
   return (
     <section className={`relative mx-auto h-screen w-full overflow-hidden`}>
       {/* Video Background */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 h-full w-full object-cover"
-      >
-        <source src="/cyber_background.mp4" type="video/mp4" />
-      </video>
+      <div
+        className="absolute inset-0 h-full w-full"
+        style={{
+          backgroundImage: "url('/cyber-bg.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
       
       {/* Overlay for better text readability */}
       <div className="absolute inset-0 bg-black/40" />
