@@ -60,6 +60,28 @@ const ExperienceCard: React.FC<TExperience & { isDark: boolean }> = ({ isDark, .
   );
 };
 
+const SplineViewer = () => {
+  React.useEffect(() => {
+    const script = document.createElement("script");
+    script.type = "module";
+    script.src = "https://unpkg.com/@splinetool/viewer@1.12.70/build/spline-viewer.js";
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  return (
+    <div className="mt-20 h-[500px] w-full overflow-hidden rounded-2xl">
+      <spline-viewer
+        url="https://prod.spline.design/gkgd4qAEj0XLVheV/scene.splinecode"
+        style={{ width: "100%", height: "100%" }}
+      />
+    </div>
+  );
+};
+
 const Experience = () => {
   const { theme } = useTheme();
   const isDark = theme === "dark";
@@ -75,6 +97,8 @@ const Experience = () => {
           ))}
         </VerticalTimeline>
       </div>
+
+      <SplineViewer />
     </>
   );
 };
