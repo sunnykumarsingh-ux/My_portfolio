@@ -16,6 +16,7 @@ import { config } from "./constants/config";
 import { ThemeProvider } from "./context/ThemeContext";
 import CursorGlow from "./components/layout/CursorGlow";
 import BackToTop from "./components/layout/BackToTop";
+import GameModal from "./components/layout/GameModal";
 
 const App = () => {
   useEffect(() => {
@@ -30,6 +31,7 @@ const App = () => {
         <div className="bg-primary relative z-0 transition-colors duration-300">
           <CursorGlow />
           <BackToTop />
+          <GameModal />
           <div>
             <Navbar />
             <Hero />
