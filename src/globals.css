@@ -4,6 +4,48 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Glassmorphism effect */
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.light .glassmorphism {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+}
+
+/* Colorful Vertical Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a2e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #915EFF 0%, #00cea8 50%, #bf61ff 100%);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #a070ff 0%, #00e0b8 50%, #d070ff 100%);
+}
+
+/* Light mode scrollbar */
+.light ::-webkit-scrollbar-track {
+  background: #f0f0f5;
+}
+
+.light ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6d28d9 0%, #00cea8 50%, #bf61ff 100%);
+}
+
 * {
   margin: 0;
   padding: 0;

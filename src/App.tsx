@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import { config } from "./constants/config";
 import { ThemeProvider } from "./context/ThemeContext";
 import CursorGlow from "./components/layout/CursorGlow";
+import BackToTop from "./components/layout/BackToTop";
 
 const App = () => {
   useEffect(() => {
@@ -28,7 +29,8 @@ const App = () => {
       <BrowserRouter>
         <div className="bg-primary relative z-0 transition-colors duration-300">
           <CursorGlow />
-          <div className="bg-hero-pattern bg-cover bg-center bg-no-repeat transition-colors duration-300">
+          <BackToTop />
+          <div>
             <Navbar />
             <Hero />
           </div>

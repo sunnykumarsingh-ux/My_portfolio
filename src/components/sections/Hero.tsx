@@ -3,10 +3,37 @@ import { motion } from "framer-motion";
 import { styles } from "../../constants/styles";
 import { ComputersCanvas } from "../canvas";
 import { config } from "../../constants/config";
+import Typewriter from "../atoms/Typewriter";
 
 const Hero = () => {
   return (
-    <section className={`relative mx-auto h-screen w-full`}>
+    <section className={`relative mx-auto h-screen w-full overflow-hidden`}>
+      {/* Video Background */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover"
+      >
+        <source src="/cyber_background.mp4" type="video/mp4" />
+      </video>
+      
+      {/* Overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/40" />
+      
+      {/* Bottom blur gradient - only blurs the bottom portion */}
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        style={{
+          background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)",
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
+          maskImage: "linear-gradient(to top, black 0%, transparent 100%)",
+          WebkitMaskImage: "linear-gradient(to top, black 0%, transparent 100%)",
+        }}
+      />
+      
       <div
         className={`absolute inset-0 top-[120px] mx-auto max-w-7xl ${styles.paddingX} flex flex-row items-start gap-5`}
       >
@@ -17,7 +44,10 @@ const Hero = () => {
 
         <div>
           <h1 className={`${styles.heroHeadText} text-white`}>
-            <span className="text-[#915EFF]">Sunny</span> Kumar
+            <span className="text-[#915EFF]">
+              <Typewriter text="Sunny" speed={150} />
+            </span>{" "}
+            <Typewriter text="Kumar" speed={150} delay={800} />
           </h1>
           <p className={`${styles.heroSubText} text-white-100 mt-2`}>
             {config.hero.p[0]} <br className="hidden sm:block" />
