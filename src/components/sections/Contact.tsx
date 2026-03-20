@@ -15,7 +15,7 @@ const INITIAL_STATE = Object.fromEntries(
 const emailjsConfig = {
   serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
   templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-  accessToken: import.meta.env.VITE_EMAILJS_ACCESS_TOKEN,
+  publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
 };
 
 const Contact = () => {
@@ -47,7 +47,7 @@ const Contact = () => {
           to_email: config.html.email,
           message: form.message,
         },
-        emailjsConfig.accessToken
+        emailjsConfig.publicKey
       )
       .then(
         () => {
@@ -58,11 +58,15 @@ const Contact = () => {
         },
         (error) => {
           setLoading(false);
-
-          console.log(error);
-          alert("Something went wrong.");
+          console.error("EmailJS Error:", error);
+          alert(`Something went wrong: ${error.text || error.message || "Unknown error"}`);
         }
-      );
+      )
+      .catch((error) => {
+        setLoading(false);
+        console.error("EmailJS Catch Error:", error);
+        alert(`Failed to send: ${error.message || "Network error"}`);
+      });
   };
 
   return (
