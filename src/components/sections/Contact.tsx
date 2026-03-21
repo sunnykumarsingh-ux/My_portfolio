@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import emailjs from "@emailjs/browser";
 
 import { EarthCanvas } from "../canvas";
 import { SectionWrapper } from "../../hoc";
@@ -12,14 +11,10 @@ const INITIAL_STATE = Object.fromEntries(
   Object.keys(config.contact.form).map((input) => [input, ""])
 );
 
-const emailjsConfig = {
-  serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
-  templateId: "template_1zomues",
-  publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-};
+const WEB3FORMS_ACCESS_KEY = "763e7dfa-626a-4817-81b6-af4961038113";
 
 const Contact = () => {
-  const formRef = useRef<React.LegacyRef<HTMLFormElement> | undefined>();
+  const formRef = useRef<HTMLFormElement>(null);
   const [form, setForm] = useState(INITIAL_STATE);
   const [loading, setLoading] = useState(false);
 
@@ -31,42 +26,40 @@ const Contact = () => {
     setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement> | undefined) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement> | undefined) => {
     if (e === undefined) return;
     e.preventDefault();
     setLoading(true);
 
-    emailjs
-      .send(
-        emailjsConfig.serviceId,
-        emailjsConfig.templateId,
-        {
-          name: form.name,
-          email: form.email,
-          message: form.message,
-          title: "Portfolio Contact",
-          time: new Date().toLocaleString(),
-        },
-        emailjsConfig.publicKey
-      )
-      .then(
-        () => {
-          setLoading(false);
-          alert("Thank you. I will get back to you as soon as possible.");
+    try {
+      const formData = new FormData();
+      formData.append("access_key", WEB3FORMS_ACCESS_KEY);
+      formData.append("name", form.name);
+      formData.append("email", form.email);
+      formData.append("message", form.message);
+      formData.append("subject", "Portfolio Contact Form Submission");
 
-          setForm(INITIAL_STATE);
-        },
-        (error) => {
-          setLoading(false);
-          console.error("EmailJS Error:", error);
-          alert(`Something went wrong: ${error.text || error.message || "Unknown error"}`);
-        }
-      )
-      .catch((error) => {
-        setLoading(false);
-        console.error("EmailJS Catch Error:", error);
-        alert(`Failed to send: ${error.message || "Network error"}`);
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
       });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setLoading(false);
+        alert("Thank you. I will get back to you as soon as possible.");
+        setForm(INITIAL_STATE);
+      } else {
+        setLoading(false);
+        console.error("Web3Forms Error:", data);
+        alert(`Something went wrong: ${data.message || "Unknown error"}`);
+      }
+    } catch (error) {
+      setLoading(false);
+      console.error("Web3Forms Catch Error:", error);
+      alert(`Failed to send: ${error instanceof Error ? error.message : "Network error"}`);
+    }
   };
 
   return (
@@ -80,7 +73,6 @@ const Contact = () => {
         <Header useMotion={false} {...config.contact} />
 
         <form
-          // @ts-expect-error
           ref={formRef}
           onSubmit={handleSubmit}
           className="mt-12 flex flex-col gap-8"
